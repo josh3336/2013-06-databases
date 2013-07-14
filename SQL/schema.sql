@@ -1,9 +1,10 @@
-CREATE DATABASE chat;
+#CREATE DATABASE chat;
 
-USE chat;
+USE chatjosh;
 
 CREATE TABLE messages (
- /* Describe your table here.*/
+  username varchar(15),
+  message varchar(200)
 );
 
 /* You can also create more tables, if you need them... */
