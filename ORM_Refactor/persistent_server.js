@@ -12,16 +12,21 @@ var ip = "127.0.0.1";
  * database: "chat" specifies that we're using the database called
  * "chat", which we created by running schema.sql.*/
 var Sequelize = require("sequelize");
-var sequelize = new Sequelize("sequelizechat", "root", "plantlife");
+var sequelize = new Sequelize("relationalchat", "root", "plantlife");
 
-var Chat = sequelize.define('Chats', {
-  user_name: Sequelize.STRING,
-  messages: Sequelize.TEXT
+var Users = sequelize.define('Users', {
+  user_name: Sequelize.STRING
+});
+
+var Messages = sequelize.define('Messages',{
+  messages: Sequelize.TEXT,
+  chat_room: Sequelize.TEXT,
+  created_by: Sequelize.INTEGER
 });
 
 
-Chat.sync();
-
+Users.sync();
+Messages.sync();
 // var dbConnection = mysql.createConnection({
 //   user: "root",
 //   password: "plantlife",
@@ -37,7 +42,8 @@ Chat.sync();
  // * using this module.
 
 var server = http.createServer(function(req, res){
-  req.db = Chat;
+  req.users = Users;
+  req.messages= Messages;
   myStuff.handleRequest(req, res);
 });
 console.log("Listening on http://" + ip + ":" + port);
